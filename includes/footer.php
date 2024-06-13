@@ -2,7 +2,7 @@
     <div class="row container mx-auto mt-5">
         <div class="footer-one col-lg-3 col-md-6 col-sm-12">
             <img class="logo" src="./assets/images/logos/logo.png">
-            <p class="pt-3">We provdeeeeeeeeeeeeeeeeeeeeeeeeeee</p>
+            <p class="pt-3">HT Luxury store cung cấp những sản phẩm tốt nhất với giá cả phải chăng nhất</p>
         </div>
         <div class="footer-one col-lg-3 col-md-6 col-sm-12">
             <h5 class="pb-2">Danh mục sản phẩm</h5>

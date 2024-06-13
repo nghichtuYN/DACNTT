@@ -1,4 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light  bg-light fixed-top py-3">
+<?php
+session_start();
+
+?>
+<nav class="navbar navbar-expand-lg navbar-light  bg-white fixed-top py-3">
     <div class="container-fluid">
         <img class="logo" src="./assets/images/logos/logo.png">
         <h4 class="brand">Thời trang Luxury</h4>
@@ -23,8 +27,31 @@
                     <a class="nav-link" href="#">Liên hệ</a>
                 </li>
                 <li class="nav-item">
-                    <i class="fa-solid fa-user"></i>
-                    <i class="fa-solid fa-cart-shopping"></i>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a class="nav-link" href="./account.php">
+                            <i class="fa-solid fa-user "></i>
+
+                        </a>
+
+
+
+                        <a class="nav-link position-relative" href="./cart.php">
+                            <i class="fa-solid fa-cart-shopping "></i>
+                            <?php
+                            if (isset($_SESSION['cart'])) {
+                                $totalCart = count($_SESSION['cart']);
+                                if ($totalCart > 0) {
+                            ?>
+                                    <span class="position-absolute top-30 start-100 translate-middle badge rounded-pill bg-danger">
+                                        <?= $totalCart ?>
+                                    </span>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </a>
+
+                    </div>
                 </li>
                 <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
