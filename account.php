@@ -12,7 +12,7 @@ if (isset($_GET['logout'])) {
         unset($_SESSION['UserName']);
         unset($_SESSION['UserEmail']);
         unset($_SESSION['logined_in']);
-        session_destroy();
+        // session_destroy();
         header('Location: login.php');
         exit;
     }

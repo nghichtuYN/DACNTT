@@ -7,11 +7,14 @@
         <div class="footer-one col-lg-3 col-md-6 col-sm-12">
             <h5 class="pb-2">Danh mục sản phẩm</h5>
             <ul class="text-uppercase">
-                <li><a href="">A</a></li>
-                <li><a href="">B</a></li>
-                <li><a href="">C</a></li>
-                <li><a href="">D</a></li>
-                <li><a href="">D</a></li>
+                <?php
+                require_once("./includes/db.php");
+                $cat = getAllCategories(5,0);
+                foreach ($cat as $c) {
+                ?>
+                    <li><a href="./shop.php?category=<?=$c['CatID']?>&beginPrice=&endPrice="><?= $c['CatName'] ?></a></li>
+                <?php
+                } ?>
             </ul>
         </div>
         <div class="footer-one col-lg-3 col-md-6 col-sm-12">
@@ -31,20 +34,21 @@
 
         </div>
         <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-            <h5 class="pb-2">Facebook</h5>
+            <h5 class="pb-2">Sản phẩm</h5>
             <div class="row">
-                <img src="./assets/images/logos/logo1.png" class="img-fluid w-25 h-100 m-2">
-                <img src="./assets/images/logos/logo1.png" class="img-fluid w-25 h-100 m-2">
-                <img src="./assets/images/logos/logo1.png" class="img-fluid w-25 h-100 m-2">
-                <img src="./assets/images/logos/logo1.png" class="img-fluid w-25 h-100 m-2">
-                <img src="./assets/images/logos/logo1.png" class="img-fluid w-25 h-100 m-2">
+                <img src="./assets/images/quan2.jpg" class="img-fluid w-25 h-100 m-2">
+                <img src="./assets/images/ao2.jpg" class="img-fluid w-25 h-100 m-2">
+                <img src="./assets/images/ao21.jpg" class="img-fluid w-25 h-100 m-2">
+                <img src="./assets/images/aothun1.jpg" class="img-fluid w-25 h-100 m-2">
+                <img src="./assets/images/mu1.jpg" class="img-fluid w-25 h-100 m-2">
+                <img src="./assets/images/ao1.jpg" class="img-fluid w-25 h-100 m-2">
             </div>
         </div>
     </div>
     <div class="copyright mt-5">
         <div class="row container mx-auto">
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <img src="./assets/images/logos/logo.png" class="img-fluid w-25 h-100 m-2">
+                <img src="./assets/images/logos/logo.png" class="img-fluid w-25 h-80 m-2">
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4 text-nowrap mb-2">
                 <p>Đặng Việt Hoàng @ 2024 All Right Reserved</p>

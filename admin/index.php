@@ -1,48 +1,25 @@
 <?php
+require_once('./header.php')
+?>
+<?php
 require_once('../includes/db.php');
 
+if (!isset($_SESSION['admin_logined_in'])) {
+    header('Location: login.php');
+    exit;
+}
 $page_no = isset($_GET['page_no']) && $_GET['page_no'] != "" ? $_GET['page_no'] : 1;
-$limit = 10;
+$limit = 5;
 $offset = ($page_no - 1) * $limit;
 $previous_page = $page_no - 1;
 $next_page = $page_no + 1;
 $search_params = "";
-$category = 0;
-$begin = 1;
-$end = 1;
 $totalOrder = getCountOrder();
 $total_page = ceil($totalOrder / $limit);
-
-if (isset($_GET['search'])) {
-    $category = $_GET['category'];
-    $begin = $_GET['beginPrice'];
-    $end = $_GET['endPrice'];
-    $totalOrder = getCountOrder();
-
-    $total_page = ceil($totalOrder / $limit);
-
-    $orders = getAllOrders($limit, $offset);
-    $search_params = "search=&category=$category&beginPrice=$begin&endPrice=$end";
-} else {
-    if (isset($_GET['category']) && isset($_GET['beginPrice']) && isset($_GET['endPrice'])) {
-        $category = $_GET['category'];
-        $begin = $_GET['beginPrice'];
-        $end = $_GET['endPrice'];
-        $totalProduct = getCountProduct($category, $begin, $end);
-        $total_page = ceil($totalOrder / $limit);
-
-        $orders = getAllOrders($limit, $offset);
-
-        $search_params = "category=$category&beginPrice=$begin&endPrice=$end";
-    } else {
-        $orders = getAllOrders($limit, $offset);
-    }
-}
+$orders = getAllOrders($limit, $offset);
 ?>
 
-<?php
-require_once('./header.php')
-?>
+
 <div class="container-fluid">
     <div class="row" style="min-height: 1000px">
         <?php
@@ -84,7 +61,7 @@ require_once('./header.php')
                                 <td><?= $o['OrderDate'] ?></td>
                                 <td><?= $o['CustPhone'] ?></td>
                                 <td><?= $o['CustAddress'] ?></td>
-                                <td><?= number_format($o['OrdCost']).' VND' ?></td>
+                                <td><?= number_format($o['OrdCost']) . ' VND' ?></td>
                                 <td>
                                     <a class="btn btn-primary" href="updates.php?id=<?= $o['OrdID'] ?>">Chi tiết</a>
                                 </td>
@@ -93,6 +70,42 @@ require_once('./header.php')
                         } ?>
                     </tbody>
                 </table>
+                <div class="d-flex flex-row-reverse">
+
+                    <nav class="me-5" aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item <?php if ($page_no <= 1) {
+                                                        echo 'disabled';
+                                                    } ?>">
+                                <a class="page-link" href="<?php if ($page_no <= 1) {
+                                                                echo "#";
+                                                            } else {
+                                                                echo "?page_no=" . ($page_no - 1) . "&$search_params";
+                                                            } ?>">Previous</a>
+                            </li>
+                            <?php
+                            for ($i = 1; $i <= $total_page; $i++) {
+                            ?>
+                                <li class="page-item <?php if ($page_no == $i) {
+                                                            echo 'active';
+                                                        } ?>">
+                                    <a class="page-link" href="?page_no=<?= $i ?>&<?= $search_params ?>"><?= $i ?></a>
+                                </li>
+                            <?php
+                            }
+                            ?>
+                            <li class="page-item <?php if ($page_no >= $total_page) {
+                                                        echo 'disabled';
+                                                    } ?>">
+                                <a class="page-link" href="<?php if ($page_no >= $total_page) {
+                                                                echo "#";
+                                                            } else {
+                                                                echo "?page_no=" . ($page_no + 1) . "&$search_params";
+                                                            } ?>">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </main>
     </div>

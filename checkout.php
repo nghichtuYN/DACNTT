@@ -22,6 +22,7 @@ function getTotalPrice()
 <html lang="vn">
 
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mẫu thanh toán</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -69,7 +70,7 @@ function getTotalPrice()
                                     <input type="email" class="form-control" id="custEmail" name="custEmail" required>
                                 </div>
                             </div>
-                   
+
                             <input type="hidden" name="OrdCost" id="" value="<?= getTotalPrice() ?>">
                         </div>
 
@@ -84,7 +85,7 @@ function getTotalPrice()
                         </div>
 
                     </div>
-                    <input  type="submit" value="Đặt hàng" name="place_order" class="btn">
+                    <input type="submit" value="Đặt hàng" name="place_order" class="btn">
                 </form>
             </div>
         </div>

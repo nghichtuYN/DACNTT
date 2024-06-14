@@ -74,11 +74,11 @@ if (isset($_GET['id'])) {
                             </div>
                             <div class="form-group mt-2">
                                 <label for="">Danh mục</label>
-                                <select class="form-select form-select-lg mb-3" name="CatID" aria-label=".form-select-lg example">
+                                <select required class="form-select form-select-lg mb-3" name="CatID" aria-label=".form-select-lg example">
                                     <option value="0">--Tất cả danh mục--</option>
                                     <?php
                                     $rows = getAllCategories();
-                                    ShowOption($rows, "CatID", "CatName", $CatID);
+                                    ShowOption($rows, "CatID", "CatName", $product['CatID']);
                                     ?>
                                 </select>
                             </div>

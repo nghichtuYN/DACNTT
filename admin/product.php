@@ -10,7 +10,7 @@ if (!isset($_SESSION['admin_logined_in'])) {
     exit;
 }
 $page_no = isset($_GET['page_no']) && $_GET['page_no'] != "" ? $_GET['page_no'] : 1;
-$limit = 8;
+$limit = 5;
 $offset = ($page_no - 1) * $limit;
 $previous_page = $page_no - 1;
 $next_page = $page_no + 1;
@@ -27,10 +27,10 @@ if (isset($_GET['search'])) {
     $totalProduct = getCountProduct($category, 0, 0, $tukhoa);
     $total_page = ceil($totalProduct / $limit);
     $products = getALlProducts($category, null, null, $limit, $offset, $tukhoa);
-    $search_params = "category=$category&key=$tukhoa" ;
+    $search_params = "category=$category&key=$tukhoa";
 } else {
     if (isset($_GET['category']) || isset($_GET['key'])) {
-      
+
         $category = $_GET['category'] ? $_GET['category'] : 0;
         $tukhoa = $_GET['key'] ?  $_GET['key'] : "";
         $totalProduct = getCountProduct($category, null, null, $tukhoa);
@@ -59,10 +59,11 @@ if (isset($_GET['search'])) {
         text-overflow: ellipsis;
     }
 
-    thead th {
+    /* thead th {
         font-weight: bold;
-       
-    }
+
+    } */
+    
 </style>
 <div class="container-fluid">
     <div class="row" style="min-height: 1000px">
@@ -79,23 +80,26 @@ if (isset($_GET['search'])) {
                 </div>
             </div>
             <h2>Danh sách sản phẩm</h2>
-            <div class="d-flex flex-row-reverse">
+            <div class="d-flex justify-content-between mt-3">
+                <a name="" id="" class="btn btn-primary" href="addProduct.php" role="button">Thêm sản phẩm</a>
+
+                </form>
                 <form name="f1" id="f1" action="" method="get" class="d-flex flex-end justify-content-center align-items-center">
-                    <label>
+                    <label class="mx-1">
                         Tìm kiếm:
-                    </label>
-                    <select name="category" id="CatID">
-                        <option value="0">Tất cả nhóm SP</option>
+                    </label >
+                    <select name="category" id="CatID" class="mx-2">
+                        <option value="0">--Tất cả danh mục--</option>
                         <?php
                         $rows = getAllCategories();
-                        ShowOption($rows, "CatID", "CatName", $CatID);
+                        ShowOption($rows, "CatID", "CatName", $category);
                         ?>
                     </select>
-                    <label>
+                    <label class="mx-1">
                         Từ khóa:
                     </label>
-                    <input type="text" name="key" value="<?= $tukhoa ?>">
-                    <button class="btn btn-primary" name="search" type="submit">Tìm kiếm</button>
+                    <input type="text" name="key" value="<?= $tukhoa ?>" class="mx-2">
+                    <button class="btn btn-primary mx-2" name="search" type="submit">Tìm kiếm</button>
 
                 </form>
             </div>
@@ -103,14 +107,14 @@ if (isset($_GET['search'])) {
                 <table class="table table-striped table-sm">
                     <thead>
                         <tr>
-                            <td scope="col">Id</td>
-                            <td scope="col">Tên sản phẩm</td>
-                            <td scope="col">Hình ảnh</td>
-                            <td scope="col">Giá sản phẩm</td>
-                            <td scope="col">Mô tả</td>
-                            <td scope="col">Danh mục</td>
-                            <td scope="col">Tình trạng</td>
-                            <td scope="col">Action</td>
+                            <th scope="col">ID</th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Hình ảnh</th>
+                            <th scope="col">Giá sản phẩm</th>
+                            <th scope="col">Mô tả</th>
+                            <th scope="col">Danh mục</th>
+                            <th scope="col">Tình trạng</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -120,10 +124,10 @@ if (isset($_GET['search'])) {
                         ?>
                             <tr>
                                 <td><?= $p["ProID"] ?></td>
-                                <td class="limited-name"><?= $p["ProName"] ?></td>
+                                <td class="limited-name" title="<?= $p["ProName"]?>"><?= $p["ProName"] ?></td>
                                 <td align="center"><img src="../assets/images/<?= $hinhanh ?>" width="100"></td>
                                 <td align="center"><?= number_format($p["Price"]) . ' VND'  ?></td>
-                                <td class="limited-description"><?= $p["Description"] ?></td>
+                                <td class="limited-description" title="<?= $p["Description"]?>"><?= $p["Description"] ?></td>
                                 <td align="center"><?= $p["CatName"] ?></td>
                                 <td><?= $p['Status'] ? '<span class="badge bg-success">Hoạt động</span>' : '<span class="badge bg-danger">Ẩn</span>' ?></td>
                                 <td>

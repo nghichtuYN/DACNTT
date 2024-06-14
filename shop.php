@@ -82,6 +82,8 @@ if (isset($_GET['search'])) {
                         $categories = getAllCategories();
 
                         foreach ($categories as $c) {
+                            if($c['Status']==0)
+                                continue
                         ?>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" value="<?= $c['CatID'] ?>" name="category" id="category_one" <?= $category == $c['CatID'] ? 'checked' : '' ?>>
@@ -117,6 +119,8 @@ if (isset($_GET['search'])) {
             <div class="row mx-auto container-fluid">
                 <?php
                 foreach ($products as $p) {
+                    if($p['Status']==0)
+                        continue;
                     $hinhanh = ($p["ProImage"] == "") ? "no-image.png" : $p["ProImage"];
                 ?>
                     <div onclick="window.location.href='single_product.php?product_id=<?= $p["ProID"] ?>'" class="product text-center col-lg-3 col-md-4 col-sm-12">

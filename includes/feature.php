@@ -1,8 +1,11 @@
 <section id="featured">
     <?php
     require_once("./includes/db.php");
-    $categories = getAllCategories();
+    $categories = getAllCategories(4, 0);
+    
     foreach ($categories as $cat) {
+        if ($cat['Status'] == 0)
+            continue;
     ?>
         <div class="container text-center mt-5 py-5">
             <h3><?= $cat['CatName'] ?></h3>
@@ -13,6 +16,8 @@
             require_once("./includes/db.php");
             $products = getALlProducts($cat['CatID']);
             foreach ($products as $p) {
+                if($p['Status']==0)
+                    continue;
                 $hinhanh = ($p["ProImage"] == "") ? "no-image.png" : $p["ProImage"];
             ?>
                 <div onclick="window.location.href='single_product.php?product_id=<?= $p["ProID"] ?>&catid=<?= $cat["CatID"] ?>'" class="product text-center col-lg-3 col-md-4 col-sm-12">

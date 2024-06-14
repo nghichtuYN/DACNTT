@@ -27,9 +27,11 @@ function getALlProducts($CatID = 0, $begin = 0, $end = 0, $limit = 4, $offset = 
     }
     if ($tukhoa != "")
         $strSQL .= " AND P.ProName LIKE '%$tukhoa%'";
+    $strSQL .= " ORDER BY P.ProID";
     if ($limit > 0 && $offset >= 0) {
         $strSQL .= " LIMIT $offset, $limit";
     }
+
 
     $pdo_stm = $conn->prepare($strSQL);
     $ketqua = $pdo_stm->execute();
@@ -127,10 +129,13 @@ function getOrderDetailByID($id)
     } else
         return FALSE;
 }
-function getAllCategories($limit = 4, $offset = 0)
+function getAllCategories($limit = 0, $offset = 0)
 {
     $conn = ConnectDB();
     $strSQL = "SELECT * FROM tbcategory";
+    if ($limit > 0 && $offset >= 0) {
+        $strSQL .= " LIMIT $offset, $limit";
+    }
     $pdo_stm = $conn->prepare($strSQL);
     $ketqua = $pdo_stm->execute();
     if ($ketqua == TRUE) {
@@ -211,19 +216,71 @@ function getOrderDetail($OrdID)
     $result['orderDetail'] = $pdo_stm->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
-function updateOrder($id, $status,$receiveDate)
+function updateOrder($id, $status, $receiveDate)
 {
     $conn = ConnectDB();
     $strSQL = "UPDATE tborder SET Status= ? ,ReceiveDate= ? WHERE OrdID=?";
     $pdo_stm = $conn->prepare($strSQL);
-    $result = $pdo_stm->execute([$status,$receiveDate, $id,]);
+    $result = $pdo_stm->execute([$status, $receiveDate, $id,]);
     return $result;
 }
-function updateProductByID($id, $ProName, $Price, $Description, $status,$catID)
+function updateProductByID($id, $ProName, $Price, $Description, $status, $catID)
 {
     $conn = ConnectDB();
     $strSQL = "UPDATE tbproduct SET ProName  = ?,Price=?,Description=?, Status= ?,CatID=? WHERE ProID=?";
     $pdo_stm = $conn->prepare($strSQL);
-    $result = $pdo_stm->execute([$ProName, $Price, $Description, $status,$catID, $id]);
+    $result = $pdo_stm->execute([$ProName, $Price, $Description, $status, $catID, $id]);
+    return $result;
+}
+function createProduct($ProName, $ProImage = "", $ProImage1 = "", $ProImage2 = "", $ProImage3 = "", $ProImage4 = "", $Price, $Descriptions, $Status, $CatID)
+{
+    $conn = ConnectDB();
+    $strSQL = "INSERT INTO tbproduct (ProName,ProImage,ProImage1,ProImage2,ProImage3,ProImage4,Price,Description,Status,CatID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    $pdo_stm = $conn->prepare($strSQL);
+    $result = $pdo_stm->execute([$ProName, $ProImage, $ProImage1, $ProImage2, $ProImage3, $ProImage4, $Price, $Descriptions, $Status, $CatID]);
+    return $result;
+}
+function deleteProductByID($id)
+{
+    $conn = ConnectDB();
+    $strSQL = "DELETE FROM tbproduct WHERE ProID=?";
+    $pdo_stm = $conn->prepare($strSQL);
+    $result = $pdo_stm->execute([$id]);
+    return $result;
+}
+function createCategory($catName, $status)
+{
+    $conn = ConnectDB();
+    $strSQL = "INSERT INTO tbcategory (CatName,Status) VALUES (?,?)";
+    $pdo_stm = $conn->prepare($strSQL);
+    $result = $pdo_stm->execute([$catName, $status]);
+    return $result;
+}
+function getCategoryByID($id)
+{
+    $conn = ConnectDB();
+    $strSQL = "SELECT * FROM tbcategory WHERE CatID=$id";
+    $pdo_stm = $conn->prepare($strSQL);
+    $ketqua = $pdo_stm->execute();
+    if ($ketqua == TRUE) {
+        $row = $pdo_stm->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    } else
+        return FALSE;
+}
+function updateCategoryByID($id, $catName, $status)
+{
+    $conn = ConnectDB();
+    $strSQL = "UPDATE tbcategory SET CatName= ? , Status= ? WHERE CatID=?";
+    $pdo_stm = $conn->prepare($strSQL);
+    $result = $pdo_stm->execute([$catName, $status, $id]);
+    return $result;
+}
+function deleteCategoryByID($id)
+{
+    $conn = ConnectDB();
+    $strSQL = "DELETE FROM tbcategory WHERE CatID=?";
+    $pdo_stm = $conn->prepare($strSQL);
+    $result = $pdo_stm->execute([$id]);
     return $result;
 }

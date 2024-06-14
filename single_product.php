@@ -15,19 +15,21 @@
     ?>
     <?php
     $id = $_REQUEST["product_id"];
-    $catId=$_REQUEST["catid"];
+    $catId = $_REQUEST["catid"];
     require("./includes/db.php");
     $product = getProductById($id);
+
+    if ($product === FALSE)
+        die("<h3>LỖI SQL</h3>");
+    if ($product === NULL)
+        die("<h3>KHÔNG TÌM THẤY SẢN PHẨM</h3>");
     $hinhanh = ($product["ProImage"] == "") ? "no-image.png" : $product["ProImage"];
     $hinhanh1 = ($product["ProImage1"] == "") ? "no-image.png" : $product["ProImage1"];
     $hinhanh2 = ($product["ProImage2"] == "") ? "no-image.png" : $product["ProImage2"];
     $hinhanh3 = ($product["ProImage3"] == "") ? "no-image.png" : $product["ProImage3"];
     $hinhanh4 = ($product["ProImage4"] == "") ? "no-image.png" : $product["ProImage4"];
-    if ($product === FALSE)
-        die("<h3>LỖI SQL</h3>");
-    if ($product === NULL)
-        die("<h3>KHÔNG TÌM THẤY SẢN PHẨM</h3>");
     ?>
+
     <section class="container single-product my-5 pt-5">
         <div class="row mt-5">
             <div class="col-lg-5 col-md-6 col-sm-12">
@@ -49,9 +51,9 @@
             </div>
             <div class="col-lg-6 col-md-12 col-12">
 
-                <h6>Men/SHose</h6>
+                <!-- <h6><?=$p['CatName']?></h6> -->
                 <h3 class="py-4"><?= $product['ProName'] ?></h3>
-                <h2><?=number_format($product["Price"]).' VND'  ?></h2>
+                <h2><?= number_format($product["Price"]) . ' VND'  ?></h2>
                 <form action="./cart.php" method="post">
                     <input type="hidden" name="ProImage" value="<?= $hinhanh ?>">
                     <input type="hidden" name="ProName" value="<?= $product['ProName'] ?>">
@@ -62,7 +64,7 @@
                 </form>
                 <h4 class="mt-5 mb-5">Chi tiết sản phẩm</h4>
                 <span>
-                <?= $product['Description']?>
+                    <?= $product['Description'] ?>
                 </span>
             </div>
         </div>

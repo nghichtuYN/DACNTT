@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['logined_in']) || !$_SESSION['logined_in']) {
-    header('Location: login.php'); // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+    header('Location: login.php');
     exit;
 }
 
@@ -9,7 +9,6 @@ if (isset($_POST['add_to_cart'])) {
     if (isset($_SESSION['cart'])) {
         $product_array_ids = array_column($_SESSION['cart'], "ProID");
         if (!in_array($_POST['ProID'], $product_array_ids)) {
-            echo "Đã vào zô";
             echo !in_array($_POST['ProID'], $product_array_ids);
             $product_array = array(
                 'ProID' => $_POST['ProID'],
@@ -20,8 +19,7 @@ if (isset($_POST['add_to_cart'])) {
             );
             $_SESSION['cart'][$_POST['ProID']] = $product_array;
         } else {
-            echo '<script>alert("Đã tồn tại")</script>';
-            // echo '<script>window.location.href="single_product.php";</script>';
+            $_SESSION['cart'][$_POST['ProID']]['Quantity'] += 1;
         }
     } else {
         $ProID = $_POST['ProID'];

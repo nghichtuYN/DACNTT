@@ -7,6 +7,7 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -25,15 +26,29 @@ session_start();
                 font-size: 3.5rem;
             }
         }
-        header{
-            height: 50px;
+
+        header {
+            height: 90px;
+        }
+
+        img {
+            width: 80px;
+            height: 80px;
+            margin-left: 10px;
+        }
+        .nav-link,th{
+            font-weight: bolder;
+            color: black;
         }
     </style>
 </head>
 
 <body>
     <header class="navbar navbar-dark sticky-top bg-warning flex-md-nowrap p-0 shadow justify-content-between">
-        <a class="navbar-brand col-md-3 col-lg-2 ne-0 px-3" href="#">HT luxury</a>
+        <div>
+            <img class="logo" src="../assets/images/logos/logo.png">
+            <a class="navbar-brand col-md-3 col-lg-2 ne-0 px-3" href="#">HT luxury</a>
+        </div>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>

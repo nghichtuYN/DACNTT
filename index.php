@@ -24,10 +24,10 @@
     </section>
     <section id="brand" class="container">
         <div class="row">
-            <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="./assets/images/logos/logo.png">
-            <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="./assets/images/logos/logo.png">
-            <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="./assets/images/logos/logo.png">
-            <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="./assets/images/logos/logo.png">
+            <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="./assets/images/brands/adidas.png">
+            <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="./assets/images/brands/chanel.png">
+            <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="./assets/images/brands/lv.jpg">
+            <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="./assets/images/brands/nike.jpg">
         </div>
     </section>
     <section id="new" class="w-100">
@@ -61,6 +61,7 @@
             </div>
         </div>
     </section>
+
     <?php
     require_once("./includes/feature.php")
     ?>
