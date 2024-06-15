@@ -18,7 +18,7 @@ function getALlProducts($CatID = 0, $begin = 0, $end = 0, $limit = 4, $offset = 
 {
     $conn = ConnectDB();
     $strSQL = "SELECT P.*, C.CatName FROM tbproduct P 
-                INNER JOIN tbcategory C ON P.CatID = C.CatID WHERE 1";
+                LEFT JOIN tbcategory C ON P.CatID = C.CatID WHERE 1";
     if ($CatID > 0) {
         $strSQL .= " AND P.CatID=$CatID";
     }
@@ -50,6 +50,18 @@ function getProductById($id)
     $ketqua = $pdo_stm->execute();
     if ($ketqua == TRUE) {
         $row = $pdo_stm->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    } else
+        return FALSE;
+}
+function getProductByIdAdnCatID($catID)
+{
+    $conn = ConnectDB();
+    $strSQL = "SELECT * FROM tbproduct WHERE CatID= $catID";
+    $pdo_stm = $conn->prepare($strSQL);
+    $ketqua = $pdo_stm->execute();
+    if ($ketqua == TRUE) {
+        $row = $pdo_stm->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     } else
         return FALSE;
